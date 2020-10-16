@@ -13,7 +13,7 @@ public class TBWork {
 	private String chat_id;
 	private String method;
 		
-	public work(String token, String chat_id, String method) {
+	public TBWork(String token, String chat_id, String method) {
 		this.token = token;
 		this.chat_id = chat_id;
 		this.method = method;
