@@ -2,19 +2,41 @@ package com.ovus.aisekle.telegrambotwork;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
-public class TelegramBotWork {
-	private static final String TOKEN = "1163692560:AAE3MtmyMzsaJRPFKbXJdJhnqcBlC5k_1GQ";
+import org.jsoup.Jsoup;
+import org.jsoup.Connection;
+
+public class TBWork {
+	private String token;
 	private static final String URL = "https://api.telegram.org/bot%s/%s";
-	private static final String chat_id = "@Toro_dOro";
-	private static String method;
-	private static String params;
-    public static void main( String[] args ) {
-    	work w = new work(TOKEN, chat_id, "sendPhoto");
-    	Map<String, String> params = new HashMap<>();
-    	params.put("photo", "https://miro.medium.com/max/1024/1*PKxxUfUZDdrMtevTgAde9w.jpeg");
-    	params.put("caption", "Деньги к деньгам");
-    	w.sendPhoto(params);
+	private String chat_id;
+	private String method;
+		
+	public work(String token, String chat_id, String method) {
+		this.token = token;
+		this.chat_id = chat_id;
+		this.method = method;
+	}
+	
+    public String sendPhoto(String params) {
+    	String result = "empty";
+    	String wholeURL = String.format(URL, token, method + "?chat_id=" + chat_id + params); // must be pair of '&key=value'
+    	Connection telegramBotConnection = Jsoup.connect(wholeURL).ignoreContentType(true);
+    	try {
+    		result = telegramBotConnection.execute().body();
+    		System.out.println(result);
+    	    		}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	return result;
+    }
+	    
+    public String sendPhoto(Map<String, String> params) {
+    	StringBuilder stringParams = new StringBuilder();
+    	for(Map.Entry entry : params.entrySet())
+    		stringParams.append("&" + entry.getKey() + "=" + entry.getValue());
+    	return sendPhoto(stringParams.toString());
     }
 }
 
