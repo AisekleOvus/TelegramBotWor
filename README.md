@@ -1,6 +1,6 @@
 # TelegramBotWork
-## TBWork
-
+## TBWork v.1.8
+  
 For now `sendPhoto` methods set complete
 
 `public String sendPhoto(String photoUrl, String caption, String parse_mode, boolean disable_notification, int reply_to_message_id)`
