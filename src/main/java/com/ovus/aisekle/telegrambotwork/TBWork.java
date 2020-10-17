@@ -7,6 +7,10 @@ import java.util.Map.Entry;
 import org.jsoup.Jsoup;
 import org.jsoup.Connection;
 
+/*
+ *  Use  percent encoding for spicial symbols (e.g. # = %23 ,  =%20); 
+ */
+
 public class TBWork {
 	private String token;
 	private static final String URL = "https://api.telegram.org/bot%s/%s";
@@ -28,7 +32,7 @@ public class TBWork {
     	}catch(Exception e) {
     		e.printStackTrace();
     	}
-    	return result;
+    	return wholeURL + System.lineSeparator() + result;
     }
 	    
     public String sendPhoto(Map<String, String> params) {
