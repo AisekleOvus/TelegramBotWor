@@ -8,7 +8,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.Connection;
 
 /*
- *  Use  percent encoding for spicial symbols (e.g. # = %23 ,  =%20); 
+ *  Author - Aisekle Ovus
+ *  Version 1.2
+ *  
  */
 
 public class TBWork {
@@ -25,6 +27,14 @@ public class TBWork {
     public String sendPhoto(String params) {
         String method = "sendPhoto";
     	String result = "empty";
+   	
+    	params = params.replace("#", "%23").replace(" ", "%20").replace("_", "%5F")
+    			       .replace("*","%2A").replace("[","%5B").replace("]","%5D")
+    			       .replace("(","%28").replace(")","%29").replace("~","%7E")
+    			       .replace("`","%60").replace(">","%3E").replace("<","%3C")
+    			       .replace("=","%3D").replace("|","%7C").replace("{","%7B")
+    			       .replace("}","%7D").replace("}","%7D").replace("!","%21")
+    			       .replace("+","%2B").replace("-","%2B");
     	String wholeURL = String.format(URL, token, method + "?chat_id=" + chat_id + params); // must be pair of '&key=value'
     	Connection telegramBotConnection = Jsoup.connect(wholeURL).ignoreContentType(true);
     	try {
